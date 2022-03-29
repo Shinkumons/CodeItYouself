@@ -30,6 +30,8 @@ public class App implements Runnable {
             update();
             render();
             if(Input.isKeyDown(GLFW.GLFW_KEY_ESCAPE)) return;
+
+            if(Input.isKeyDown(GLFW.GLFW_KEY_F11)) window.setFullscreen(!window.isFullscreen());
         }
 
         window.destroyAllCallback();
