@@ -1,0 +1,49 @@
+package CodeItYourself;
+
+import engine.io.Window;
+
+public class App implements Runnable {
+    public Thread game;
+    public static Window window;
+    public static int frame;
+    public static long time;
+    
+    public void start () {
+        game = new Thread(this, "game");
+        game.start();
+    }
+
+    public static void init() {
+        System.out.println("Initializing game !");
+        window = new Window(1280,720,"CodeItYourself");
+        window.create();
+        time = System.currentTimeMillis();
+    }
+
+    public void run() {
+        init();
+        while(!window.actionClose()){
+            update();
+            render();
+        }
+    }
+
+    private void update() {
+        window.update();
+        frame++;
+        if (System.currentTimeMillis() > (time + 1000)) {
+            System.out.println(frame);
+            time = System.currentTimeMillis();
+            frame=0;
+        }
+    }
+
+    private void render() {
+        window.swapBuffers();
+    }
+
+    public static void main (String[] args) {
+        new App().start();
+    }
+}
+
